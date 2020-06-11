@@ -1,0 +1,9 @@
+CREATE TABLE [dbo].[Order](
+  [Id] [BIGINT] IDENTITY(1,1) NOT NULL,
+  [CustomerId] BIGINT,
+  [OrderNumber] AS ('AB' + RIGHT('0000000' + CAST(Id AS VARCHAR(7)), 7)) PERSISTED,
+  [Total] DECIMAL(10,2),
+  [CreatedDate] DATETIME,
+  [Status] INT,
+  CONSTRAINT [PK_AutoInc] PRIMARY KEY ([Id] ASC)
+)

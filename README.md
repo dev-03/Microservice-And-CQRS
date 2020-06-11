@@ -1,3 +1,10 @@
 # Microservice-And-CQRS
 A microservice architecture which implements the CQRS patterns
-# This is a test
+
+### Instructions:
+
+- Setup a MS SQL Server for running database
+- Start up project with Microservice.API project
+
+
+
