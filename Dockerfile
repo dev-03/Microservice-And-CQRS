@@ -1,18 +1,28 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 WORKDIR /app
+EXPOSE 80
 
-# Copy csproj and restore as distinct layers
-COPY . ./
-RUN dotnet restore
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+WORKDIR /
+COPY ["Microservice.Infrastructure/Microservice.Infrastructure.csproj", "Microservice.Infrastructure/"]
+COPY ["Microservice.API/Microservice.API.csproj", "Microservice.API/"]
+RUN dotnet restore "Microservice.Infrastructure/Microservice.Infrastructure.csproj"
+RUN dotnet restore "Microservice.API/Microservice.API.csproj"
 
-# Copy everything else and build
-#COPY . ./
-RUN dotnet publish -c Release -o out
+COPY . .
+WORKDIR "/Microservice.Infrastructure"
+RUN dotnet build "Microservice.Infrastructure.csproj" -c Release -o /app/build
+WORKDIR "/Microservice.API"
+RUN dotnet build "Microservice.API.csproj" -c Release -o /app/build
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+
+FROM build AS publish
+WORKDIR "/Microservice.Infrastructure"
+RUN dotnet publish "Microservice.Infrastructure.csproj" -c Release -o /app/publish
+WORKDIR "/Microservice.API"
+RUN dotnet publish "Microservice.API.csproj" -c Release -o /app/publish
+
+FROM base AS final
 WORKDIR /app
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "Micrososervice.API.dll"]
-
-EXPOSE 5000/tcp
-ENV ASPNETCORE_URLS http://*:5000
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Microservice.API.dll"]
