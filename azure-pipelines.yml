@@ -21,17 +21,18 @@ stages:
   displayName: Unit Test then Build image
   jobs:
   - job: UnitTest
-  displayName: Running Unit tests for Microservice
-  pool:
-    vmImage: $(vmImageName)
+    displayName: Running Unit tests for Microservice
+    pool:
+      vmImage: $(vmImageName)
   steps:    
   - task: DotNetCoreCLI@2
     inputs:
       command: 'test'
   - job: Build
+    dependsOn: UnitTest
     displayName: Build
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: $(vmImageName)
     steps:
     - task: Docker@2
       displayName: Build an image
