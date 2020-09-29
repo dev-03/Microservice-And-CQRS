@@ -25,9 +25,9 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:    
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: test
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: test
   - job: Build
     dependsOn: UnitTest
     displayName: Build
