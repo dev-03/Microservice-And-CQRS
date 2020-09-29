@@ -5,7 +5,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /
 COPY ["Microservice.Infrastructure/Microservice.Infrastructure.csproj", "Microservice.Infrastructure/"]
-COPY ["Microservice.API/Microservice.Api.csproj", "Microservice.Api/"]
+COPY ["Microservice.Api/Microservice.Api.csproj", "Microservice.Api/"]
 RUN dotnet restore "Microservice.Infrastructure/Microservice.Infrastructure.csproj"
 RUN dotnet restore "Microservice.Api/Microservice.Api.csproj"
 
