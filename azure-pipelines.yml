@@ -24,7 +24,7 @@ stages:
     displayName: Running Unit tests for Microservice
     pool:
       vmImage: $(vmImageName)
-  steps:    
+    steps:    
   - task: DotNetCoreCLI@2
     inputs:
       command: 'test'
