@@ -27,7 +27,7 @@ stages:
     steps:    
   - task: DotNetCoreCLI@2
     inputs:
-      command: 'test'
+      command: test
   - job: Build
     dependsOn: UnitTest
     displayName: Build
