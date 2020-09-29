@@ -39,7 +39,7 @@ stages:
       inputs:
         repository: $(imageName)
         command: build
-        arguments: '--clear-cache'
+        arguments: '--no-cache'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
