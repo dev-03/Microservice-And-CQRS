@@ -11,7 +11,7 @@ resources:
 variables:
   trivyVersion: 0.11.0
   imageName: 'microservice-api'
-  tag: 'latest'
+  tag: '$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
