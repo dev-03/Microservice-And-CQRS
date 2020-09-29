@@ -13,10 +13,21 @@ variables:
   imageName: 'microservice-api'
   tag: 'latest'
 
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
 stages:
-- stage: Build
-  displayName: Build image
-  jobs:  
+- stage: BuildAndTest
+  displayName: Unit Test then Build image
+  jobs:
+  - job: UnitTest
+  displayName: Running Unit tests for Microservice
+  pool:
+    vmImage: $(vmImageName)
+  steps:    
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
   - job: Build
     displayName: Build
     pool:
