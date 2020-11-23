@@ -14,7 +14,7 @@ variables:
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'name: linux-self-hosted-agent-pool-01'
 
 stages:
 - stage: BuildAndTest
