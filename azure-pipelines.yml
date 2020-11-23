@@ -14,7 +14,7 @@ variables:
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  vmImageName: 'name: linux-self-hosted-agent-pool-01'
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: BuildAndTest
@@ -23,6 +23,7 @@ stages:
   - job: UnitTest
     displayName: Running Unit tests for Microservice
     pool:
+      name: linux-self-hosted-agent-pool-01
       vmImage: $(vmImageName)
     steps:    
     - task: DotNetCoreCLI@2
