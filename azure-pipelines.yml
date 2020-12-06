@@ -33,6 +33,7 @@ stages:
     dependsOn: UnitTest
     displayName: Build
     pool:
+      name: linux-self-hosted-agent-pool-01
       vmImage: $(vmImageName)
     steps:
     - task: Docker@2
