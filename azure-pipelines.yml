@@ -42,7 +42,7 @@ stages:
         repository: $(imageName)
         command: build
         arguments: '--no-cache'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        dockerfile: Dockerfile
         tags: |
           $(tag)
     - script: |
