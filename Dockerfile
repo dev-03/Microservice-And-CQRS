@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
-WORKDIR /app
+WORKDIR /azp
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
