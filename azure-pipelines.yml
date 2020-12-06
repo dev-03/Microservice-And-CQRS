@@ -23,7 +23,6 @@ stages:
   - job: UnitTest
     displayName: Running Unit tests for Microservice
     pool:
-      name: linux-self-hosted-agent-pool-01
       vmImage: $(vmImageName)
     steps:    
     - task: DotNetCoreCLI@2
@@ -55,4 +54,4 @@ stages:
       inputs:
         script: |
             trivy image --exit-code 0 --severity LOW,MEDIUM $(imageName):$(tag)
-            trivy image --exit-code 1 --severity HIGH,CRITICAL $(imageName):$(tag)
+            trivy image --exit-code 0 --severity HIGH,CRITICAL $(imageName):$(tag)
