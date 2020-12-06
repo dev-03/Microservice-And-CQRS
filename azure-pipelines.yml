@@ -29,11 +29,21 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: test
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet publish'
+      inputs:
+       command: publish
+       publishWebProjects: false
+       projects: '**/*.csproj'
+       arguments: '-o $(Build.ArtifactStagingDirectory)/Output'
+       zipAfterPublish: true
+       modifyOutputPath: true
+    
   - job: Build
     dependsOn: UnitTest
     displayName: Build
     pool:
-      name: linux-self-hosted-agent-pool-01
       vmImage: $(vmImageName)
     steps:
     - task: Docker@2
@@ -42,8 +52,7 @@ stages:
         repository: $(imageName)
         command: build
         arguments: '--no-cache'
-        dockerfile: '**/Dockerfile'
-        buildContext: '$(Build.SourcesDirectory)'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
     - script: |
